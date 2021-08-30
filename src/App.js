@@ -1,24 +1,42 @@
-import logo from './logo.svg';
+import { Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
 import './App.css';
+import PatientDisplay from './Components/PatientDisply';
+import PatientList from './Components/PatientList';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import { 
+  useEffect, 
+  useState
+} from 'react'
+
+import '@fontsource/roboto';
 
 function App() {
+  const request = "http://localhost:5000/patients";
+  const [patientList, setPatientList] = useState([]);
+
+  useEffect(() => {
+    fetch(request)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setPatientList(data);
+    });
+  }, [])
+  
+ 
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header/>
+      <Grid className="App">
+        <PatientList patients={patientList}/>
+        <PatientDisplay/>
+      </Grid>
+      <Footer/>
+    </>
   );
 }
 
