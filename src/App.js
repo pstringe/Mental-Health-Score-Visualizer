@@ -16,6 +16,12 @@ import {
 
 import '@fontsource/roboto';
 
+const useStyles = makeStyles({
+  root: {
+    maxHeight: '100vh'
+  }
+});
+
 function App() {
   const requestPatientList = "http://localhost:5000/patients";
   const requestVisitHistory = "http://localhost:5000/history";
@@ -24,6 +30,7 @@ function App() {
   const [selectedPatient, setSelectedPatient] = useState('');
   const [patientData, setPatientData] = useState([]);
   const [visitHistory, setVisitHistory] = useState([]);
+  const classes = useStyles();
 
   useEffect(() => {
     
@@ -63,7 +70,7 @@ function App() {
   }
 
   return (
-    <Box height={1} className="App">
+    <Box className={`App ${classes.root}`}>
       <Header/>
       <Grid container direction='row'>
         <Grid item xs={3}>

@@ -20,7 +20,7 @@ const PatientDisplay = ({patient, visits}) => {
     const classes = useStyles();
     console.log('visits', visits);
     return ( 
-        <Box className={classes.root} width={1} height={1}>
+        <Box className={classes.root} width={1} height={600}>
             <Typography variant='caption'>{patient}</Typography>
             {visits?.length && <LineGraph className={classes.graph} data={visits}/>}
         </Box>
