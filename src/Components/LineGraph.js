@@ -28,7 +28,9 @@ const LineGraph = ({data}) => {
     ]
     return ( 
         <Box className='graph' height={1} width={1}>
-            <ResponsiveLine data={lines} />
+            <ResponsiveLine data={lines}
+                            margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
+            />
         </Box>
     );
 }
