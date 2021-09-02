@@ -1,9 +1,9 @@
 import { Container } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { 
   Grid,
   Box
 } from '@material-ui/core';
+import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import './App.css';
 import PatientDisplay from './Components/PatientDisplay';
 import PatientList from './Components/PatientList';
@@ -13,19 +13,28 @@ import {
   useEffect, 
   useState
 } from 'react'
-
 import '@fontsource/roboto';
 
-const useStyles = makeStyles({
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#6d9147',
+    },
+    secondary: {
+      main: '#278c79',
+    }
+  },
+});
+
+const useStyles = makeStyles((theme) => ({
   root: {
     maxHeight: '100vh'
   }
-});
+}));
 
 function App() {
   const requestPatientList = "http://localhost:5000/patients";
   const requestVisitHistory = "http://localhost:5000/history";
-
   const [patientList, setPatientList] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState('');
   const [patientData, setPatientData] = useState([]);
@@ -41,7 +50,6 @@ function App() {
     fetch(requestPatientList)
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       setPatientList(data);
     });
 
@@ -60,7 +68,6 @@ function App() {
     const data = visitHistory?.filter((visit) => {
       return visit["Patient Name"] === selectedPatient;
     });
-    console.log('patient data', data)
     setPatientData(data);
   }, [selectedPatient, visitHistory])
   
@@ -70,18 +77,22 @@ function App() {
   }
 
   return (
-    <Box className={`App ${classes.root}`}>
-      <Header/>
-      <Grid container direction='row'>
-        <Grid item xs={3}>
-          <PatientList patients={patientList} selectPatient={selectPatient}/>
+    <ThemeProvider theme={theme}>
+      <Box className={`App ${classes.root}`}>
+        <Header/>
+        <Container>
+        <Grid container direction='row'>
+          <Grid item xs={3}>
+            <PatientList patients={patientList} selectPatient={selectPatient}/>
+          </Grid>
+          <Grid item xs={9}>
+            <PatientDisplay patient={selectedPatient} visits={patientData}/>
+          </Grid>
         </Grid>
-        <Grid item xs={9}>
-          <PatientDisplay patient={selectedPatient} visits={patientData}/>
-        </Grid>
-      </Grid>
-      <Footer/>
-    </Box>
+        </Container>
+        <Footer/>
+      </Box>
+    </ThemeProvider>
   );
 }
 

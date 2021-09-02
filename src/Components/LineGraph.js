@@ -9,15 +9,26 @@ const LineGraph = ({data}) => {
         }
     });
 
-    const GAD7 = [{
-        id: 'GAD-7',
-        data: gad7Data 
-    }]
+    const phq9Data = data.map((point) => {
+        return {
+            x: point["Timestamp"],
+            y: point["PHQ-9 Score"],
+        }
+    });
 
-    console.log('GAD-7', GAD7);
+    const lines = [
+        {
+            id: 'GAD-7',
+            data: gad7Data 
+        },
+        {
+            id: 'PHQ-9',
+            data: phq9Data
+        }
+    ]
     return ( 
         <Box className='graph' height={1} width={1}>
-            <ResponsiveLine data={GAD7} />
+            <ResponsiveLine data={lines} />
         </Box>
     );
 }
