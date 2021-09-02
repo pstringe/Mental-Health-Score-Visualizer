@@ -26,17 +26,18 @@ const LineGraph = ({data}) => {
             data: phq9Data
         }
     ]
+
     return ( 
         <Box className='graph' height={1} width={1}>
             <ResponsiveLine data={lines}
-                margin={{ top: 50, right: 90, bottom: 70, left: 50 }}
+                margin={{ top: 0, right: 90, bottom: 140, left: 50 }}
                 axisBottom={{
                     orient: 'bottom',
                     tickSize: 5,
                     tickPadding: 10,
                     tickRotation: 20,
                     legend: 'Timestamp',
-                    legendOffset: 60,
+                    legendOffset: 65,
                     legendPosition: 'middle'
                 }}
                 axisLeft={{
@@ -50,8 +51,8 @@ const LineGraph = ({data}) => {
                 }}
                 legends={[
                     {
-                        anchor: 'top-left',
-                        direction: 'row',
+                        anchor: 'top-right',
+                        direction: 'column',
                         justify: false,
                         translateX: 100,
                         translateY: 0,
@@ -74,7 +75,7 @@ const LineGraph = ({data}) => {
                         ]
                     }]
                 }
-                />
+            />
         </Box>
     );
 }

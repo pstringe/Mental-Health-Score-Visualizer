@@ -1,9 +1,13 @@
+import { useState } from 'react'
 import { 
     Box,
+    Button,
     Typography
 } from "@material-ui/core";
-import LineGraph from "./LineGraph";
 import { makeStyles } from '@material-ui/core/styles';
+
+import LineGraph from "./LineGraph";
+import DataTable from "./DataTable";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,7 +18,9 @@ const useStyles = makeStyles((theme) => ({
         height: '100%'
     },
     toolbar: {
-        padding: theme.spacing(1),
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         margin: theme.spacing(2)
     },
     empty: {
@@ -26,21 +32,28 @@ const useStyles = makeStyles((theme) => ({
 
 /*
 ** This component takes in the name of a patient and their visit history and displays
-** a graph of their data as
+** a graph of their data that can be toggled to show as a table
 */
 
 const PatientDisplay = ({patient, visits}) => {
     const classes = useStyles();
-    console.log('visits', visits);
+    const [view, setView] = useState(true); //true -> graph, false -> table
+
     return ( 
-        <Box className={classes.root} width={1} height={700}>
+        <Box className={classes.root}>
             {visits?.length ? 
-                <>
-                    <Box>
+                <Box width={1} height={800}>
+                    <Box className={classes.toolbar}>
                         <Typography variant='caption'>Patient Name: {patient}</Typography>
+                        <Button variant='outlined'
+                                color='primary'
+                                onClick={() => setView(cur => !cur)}>
+                                    {`Show ${view ? 'Table' : 'Graph'}`}
+                        </Button>
                     </Box>
-                    <LineGraph className={classes.graph} data={visits}/>
-                </>:
+                    {view && <LineGraph className={classes.graph} data={visits}/>}
+                    {!view && <DataTable className={classes.graph} data={visits}/>}
+                </Box>:
                 <Box className={classes.empty}>
                     <Typography variant='h1'>Please select a patient from the menu to view their history</Typography>
                 </Box>
