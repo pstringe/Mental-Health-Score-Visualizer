@@ -21,11 +21,11 @@ const Header = () => {
     const classes = useStyles();
     return (
         <>
-        <Box className={classes.root}>
-            <Typography variant='h1'>Prarie Health</Typography>
-            <Typography variant='h2'>Mental Health Score Visualiser</Typography>
-        </Box>
-        <hr className={classes.divider}></hr>
+            <Box className={classes.root}>
+                <Typography variant='h1'>Prarie Health</Typography>
+                <Typography variant='h2'>Mental Health Score Visualiser</Typography>
+            </Box>
+            <hr className={classes.divider}></hr>
         </>  
     );
 }

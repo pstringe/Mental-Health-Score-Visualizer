@@ -1,19 +1,19 @@
-import { Container } from '@material-ui/core';
 import { 
   Grid,
-  Box
+  Box,
+  Paper,
+  Container
 } from '@material-ui/core';
 import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import './App.css';
-import PatientDisplay from './Components/PatientDisplay';
-import PatientList from './Components/PatientList';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
 import { 
   useEffect, 
   useState
 } from 'react'
 import '@fontsource/roboto';
+import PatientDisplay from './Components/PatientDisplay';
+import PatientList from './Components/PatientList';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 
 const theme = createTheme({
   palette: {
@@ -22,14 +22,19 @@ const theme = createTheme({
     },
     secondary: {
       main: '#278c79',
-    }
+    },
+
   },
   typography: {
     h1: {
       fontSize: 24,
     },
     h2: {
-      fontSize: 18
+      fontSize: 18,
+      fontWeight: 'bold' 
+    },
+    h3: {
+      fontSize: '1 rem',
     }
   }
 });
@@ -37,6 +42,9 @@ const theme = createTheme({
 const useStyles = makeStyles((theme) => ({
   root: {
     maxHeight: '100vh'
+  },
+  main: {
+    padding: theme.spacing(2)
   }
 }));
 
@@ -50,7 +58,6 @@ function App() {
   const classes = useStyles();
 
   useEffect(() => {
-    
     /*
     ** retrieve patient names
     */
@@ -72,6 +79,10 @@ function App() {
     });
   }, [])
 
+  /*
+  ** Filter visit data acording to selected patient
+  */
+
   useEffect(() => {
     const data = visitHistory?.filter((visit) => {
       return visit["Patient Name"] === selectedPatient;
@@ -79,8 +90,11 @@ function App() {
     setPatientData(data);
   }, [selectedPatient, visitHistory])
   
+  /*
+  ** Event handler for items in patient menu
+  */
+
   const selectPatient = (patient) => {
-    console.log('select', patient);
     setSelectedPatient(patient);
   }
 
@@ -89,14 +103,16 @@ function App() {
       <Box className={`App ${classes.root}`}>
         <Header/>
         <Container>
-        <Grid container direction='row'>
-          <Grid item xs={3}>
-            <PatientList patients={patientList} selectPatient={selectPatient}/>
+        <Paper className={classes.main}>
+          <Grid container direction='row'>
+            <Grid item xs={3}>
+              <PatientList patients={patientList} selectPatient={selectPatient}/>
+            </Grid>
+            <Grid item xs={9}>
+              <PatientDisplay patient={selectedPatient} visits={patientData}/>
+            </Grid>
           </Grid>
-          <Grid item xs={9}>
-            <PatientDisplay patient={selectedPatient} visits={patientData}/>
-          </Grid>
-        </Grid>
+        </Paper>
         </Container>
         <Footer/>
       </Box>
