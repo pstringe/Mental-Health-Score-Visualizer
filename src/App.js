@@ -104,10 +104,10 @@ function App() {
         <Container>
         <Paper className={classes.main}>
           <Grid container direction='row'>
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={3}>
               <PatientList patients={patientList} selectPatient={selectPatient}/>
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={12} sm={9}>
               <PatientDisplay patient={selectedPatient} visits={patientData}/>
             </Grid>
           </Grid>
