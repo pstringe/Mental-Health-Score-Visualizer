@@ -33,7 +33,7 @@ const PatientDisplay = ({patient, visits}) => {
     const classes = useStyles();
     console.log('visits', visits);
     return ( 
-        <Box className={classes.root} width={1} height={600}>
+        <Box className={classes.root} width={1} height={700}>
             {visits?.length ? 
                 <>
                     <Box>
