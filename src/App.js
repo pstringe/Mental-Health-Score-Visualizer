@@ -13,7 +13,6 @@ import '@fontsource/roboto';
 import PatientDisplay from './Components/PatientDisplay';
 import PatientList from './Components/PatientList';
 import Header from './Components/Header';
-import Footer from './Components/Footer';
 
 const theme = createTheme({
   palette: {
@@ -114,7 +113,6 @@ function App() {
           </Grid>
         </Paper>
         </Container>
-        <Footer/>
       </Box>
     </ThemeProvider>
   );
