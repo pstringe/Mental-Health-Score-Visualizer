@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '100%'
     },
+    table:{
+        overflowY: 'auto',
+    },
     toolbar: {
         display: 'flex',
         flexDirection: 'row',
@@ -52,7 +55,7 @@ const PatientDisplay = ({patient, visits}) => {
                         </Button>
                     </Box>
                     {view && <LineGraph className={classes.graph} data={visits}/>}
-                    {!view && <DataTable className={classes.graph} data={visits}/>}
+                    {!view && <DataTable className={classes.table} data={visits}/>}
                 </Box>:
                 <Box className={classes.empty}>
                     <Typography variant='h1'>Please select a patient from the menu to view their history</Typography>
