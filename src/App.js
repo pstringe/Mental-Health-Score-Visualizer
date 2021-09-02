@@ -91,7 +91,7 @@ function App() {
   }, [selectedPatient, visitHistory])
   
   /*
-  ** Event handler for items in patient menu
+  ** Click handler for items in patient menu
   */
 
   const selectPatient = (patient) => {
