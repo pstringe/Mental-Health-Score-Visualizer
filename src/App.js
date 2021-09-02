@@ -24,6 +24,14 @@ const theme = createTheme({
       main: '#278c79',
     }
   },
+  typography: {
+    h1: {
+      fontSize: 24,
+    },
+    h2: {
+      fontSize: 18
+    }
+  }
 });
 
 const useStyles = makeStyles((theme) => ({
